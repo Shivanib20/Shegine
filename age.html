@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Age - SHEGIENE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #1abc9c;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 80%;
+            max-width: 300px;
+            color: black;
+        }
+        button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #17a589;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Age</h1>
+        <input type="number" id="age-input" placeholder="Enter your age" min="1" required>
+        <button onclick="submitAge()">Submit</button>
+    </div>
+
+    <script>
+        function submitAge() {
+            const age = document.getElementById('age-input').value;
+            if (age) {
+                window.location.href = `calender.html?age=${age}`;
+            } else {
+                alert("Please enter your age.");
+            }
+        }
+    </script>
+</body>
+</html>

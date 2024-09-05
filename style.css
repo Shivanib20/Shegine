@@ -1,0 +1,153 @@
+/* Global Styles */
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* This prevents background scroll */
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none;
+  }
+  
+  /* Global Navigation Styles */
+  nav {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav a {
+    text-decoration: none;
+  }
+  
+  nav a img {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  nav a img:hover {
+    transform: scale(1.1);
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-links li {
+    position: relative;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 12px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background for nav buttons */
+  }
+  
+  .nav-links a:hover {
+    color: var(--carribean-green);
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly darker on hover */
+  }
+  
+  /* Navigation underline effect */
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--carribean-green);
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-links a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+  /* Mobile Menu */
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background: white;
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive Nav for mobile screens */
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background-color: #333;
+      top: 100%;
+      right: 0;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    .nav-links a {
+      padding: 1rem 0;
+      width: 100%;
+      border-top: 1px solid var(--white-light);
+    }
+  }
+  
+  /* Footer Styles */
+  .footer-bottom {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    font-family: "Times New Roman", Times, serif;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-bottom p {
+    margin: 0;
+    color: var(--white-light);
+  }
+  
+  .footer-bottom p:hover {
+    color: var(--carribean-green);
+    transition: color 0.3s ease;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .footer-bottom {
+      font-size: 0.8rem;
+    }
+  }
+  

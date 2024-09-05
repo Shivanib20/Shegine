@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - SHEGIENE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        .calendar-container {
+            text-align: center;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+        .month {
+            padding: 40px 25px;
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        .days, .weekdays {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+        .weekdays li, .days li {
+            display: inline-block;
+            width: 13.6%;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .weekdays {
+            background-color: #16a085;
+            color: white;
+            padding: 10px 0;
+            border-radius: 0 0 10px 10px;
+        }
+        .days li {
+            background-color: #ecf0f1;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .days li:hover {
+            background-color: #1abc9c;
+            color: white;
+        }
+        .days li.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* New CSS for the prompt */
+        .prompt-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        .prompt-box p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .prompt-box button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="month">
+            <h1 id="month-year"></h1>
+        </div>
+        <ul class="weekdays">
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+            <li>Sun</li>
+        </ul>
+        <ul class="days" id="days"></ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SHEGIENE</p>
+    </footer>
+
+    <!-- Prompt Box for Menstrual Cycle -->
+    <div class="prompt-box" id="prompt-box">
+        <p id="cycle-message"></p>
+        <button onclick="closePrompt()">OK</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            const daysContainer = document.getElementById('days');
+            const monthYear = document.getElementById('month-year');
+            let selectedDay = null;
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            monthYear.textContent = `${monthNames[month]} ${year}`;
+
+            const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Create calendar days
+            for (let i = 1; i <= lastDateOfMonth; i++) {
+                const dayElement = document.createElement('li');
+                dayElement.textContent = i;
+                dayElement.addEventListener('click', () => {
+                    if (selectedDay) {
+                        selectedDay.classList.remove('active');
+                    }
+                    dayElement.classList.add('active');
+                    selectedDay = dayElement;
+
+                    // Calculate next menstrual cycle date range
+                    const selectedDate = new Date(year, month, i);
+                    const cycleStart = new Date(selectedDate);
+                    const cycleEnd = new Date(selectedDate);
+                    cycleStart.setDate(cycleStart.getDate() + 25); // 25 days
+                    cycleEnd.setDate(cycleEnd.getDate() + 30); // 30 days
+
+                    // Display the prompt with the next cycle date range
+                    const cycleMessage = document.getElementById('cycle-message');
+                    cycleMessage.textContent = `Your next menstrual cycle is expected between ${cycleStart.getDate()} ${monthNames[cycleStart.getMonth()]} and ${cycleEnd.getDate()} ${monthNames[cycleEnd.getMonth()]}.`;
+                    document.getElementById('prompt-box').style.display = 'block';
+                });
+                daysContainer.appendChild(dayElement);
+            }
+        });
+
+        // Close the prompt box
+        function closePrompt() {
+            document.getElementById('prompt-box').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
